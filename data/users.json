@@ -6,5 +6,9 @@
   "client1": {
     "password": "client123",
     "role": "client"
+  },
+  "client2": {
+    "password": "client456",
+    "role": "client"
   }
 }
