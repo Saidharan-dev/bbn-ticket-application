@@ -1,0 +1,76 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Admin Dashboard</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/style.css') }}">
+</head>
+<body>
+    <div class="navbar">
+        <div class="navbar-brand">BBN Ticket Management System - Admin</div>
+        <div class="navbar-user">
+            <span>Welcome, {{ username }}</span>
+            <a href="/logout" class="btn-logout">Logout</a>
+        </div>
+    </div>
+    
+    <div class="container">
+        <div class="sidebar">
+            <nav class="menu">
+                <button class="menu-item active" data-view="received">
+                    📬 Received Responses
+                </button>
+                <button class="menu-item" data-view="resolved">
+                    ✓ Previous Responses (Resolved)
+                </button>
+            </nav>
+        </div>
+        
+        <div class="main-content">
+            <!-- Received Tickets View -->
+            <div id="received-view" class="view-section active">
+                <h2>Received Tickets</h2>
+                <div id="received-tickets" class="tickets-list">
+                    <p class="loading">Loading tickets...</p>
+                </div>
+            </div>
+            
+            <!-- Resolved Tickets View -->
+            <div id="resolved-view" class="view-section">
+                <h2>Previous Responses (Resolved)</h2>
+                <div id="resolved-tickets" class="tickets-list">
+                    <p class="loading">Loading tickets...</p>
+                </div>
+            </div>
+        </div>
+    </div>
+    
+    <!-- Modal for Ticket Details -->
+    <div id="ticketModal" class="modal">
+        <div class="modal-content">
+            <span class="close">&times;</span>
+            <h2>Ticket Details</h2>
+            <div id="ticketDetails" class="ticket-details"></div>
+        </div>
+    </div>
+    
+    <!-- Modal for Solution -->
+    <div id="solutionModal" class="modal">
+        <div class="modal-content">
+            <span class="close">&times;</span>
+            <h2>Write Solution</h2>
+            <form id="solutionForm">
+                <div class="form-group">
+                    <label for="solutionText">Solution:</label>
+                    <textarea id="solutionText" name="solution" rows="8" placeholder="Describe the solution..." required></textarea>
+                </div>
+                <button type="submit" class="btn-primary">Send Solution</button>
+            </form>
+            <div id="solution-message" class="message" style="display:none;"></div>
+        </div>
+    </div>
+    
+    <script src="{{ url_for('static', filename='js/admin.js') }}"></script>
+</body>
+</html>

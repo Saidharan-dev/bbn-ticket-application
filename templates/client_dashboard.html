@@ -1,0 +1,83 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Client Dashboard</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/style.css') }}">
+</head>
+<body>
+    <div class="navbar">
+        <div class="navbar-brand">BBN Ticket Management System</div>
+        <div class="navbar-user">
+            <span>Welcome, {{ username }}</span>
+            <a href="/logout" class="btn-logout">Logout</a>
+        </div>
+    </div>
+    
+    <div class="container">
+        <div class="sidebar">
+            <nav class="menu">
+                <button class="menu-item active" data-view="pending">
+                    📋 Pending Tickets
+                </button>
+                <button class="menu-item" data-view="previous">
+                    ✓ Previous Tickets & Responses
+                </button>
+                <button class="menu-item" data-view="raise">
+                    ✏️ Raise a Ticket
+                </button>
+            </nav>
+        </div>
+        
+        <div class="main-content">
+            <!-- Pending Tickets View -->
+            <div id="pending-view" class="view-section active">
+                <h2>Pending Tickets</h2>
+                <div id="pending-tickets" class="tickets-list">
+                    <p class="loading">Loading tickets...</p>
+                </div>
+            </div>
+            
+            <!-- Previous Tickets View -->
+            <div id="previous-view" class="view-section">
+                <h2>Previous Tickets & Responses</h2>
+                <div id="previous-tickets" class="tickets-list">
+                    <p class="loading">Loading tickets...</p>
+                </div>
+            </div>
+            
+            <!-- Raise Ticket View -->
+            <div id="raise-view" class="view-section">
+                <h2>Raise a New Ticket</h2>
+                <form id="ticketForm" class="ticket-form">
+                    <div class="form-group">
+                        <label for="problem">Describe Your Problem:</label>
+                        <textarea id="problem" name="problem" rows="6" placeholder="Please describe the issue you're facing..." required></textarea>
+                    </div>
+                    
+                    <div class="form-group">
+                        <label for="files">Attach Files (if any):</label>
+                        <input type="file" id="files" name="files" multiple accept=".pdf,.doc,.docx,.txt,.jpg,.png,.zip">
+                        <small>You can attach multiple files (PDF, DOC, TXT, JPG, PNG, ZIP)</small>
+                    </div>
+                    
+                    <button type="submit" class="btn-primary">Submit Ticket</button>
+                </form>
+                <div id="form-message" class="message" style="display:none;"></div>
+            </div>
+        </div>
+    </div>
+    
+    <!-- Modal for Ticket Details -->
+    <div id="ticketModal" class="modal">
+        <div class="modal-content">
+            <span class="close">&times;</span>
+            <h2>Ticket Details</h2>
+            <div id="ticketDetails" class="ticket-details"></div>
+        </div>
+    </div>
+    
+    <script src="{{ url_for('static', filename='js/client.js') }}"></script>
+</body>
+</html>
