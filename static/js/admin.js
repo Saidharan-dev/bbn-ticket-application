@@ -315,109 +315,25 @@ document.getElementById('solutionForm').addEventListener('submit', async (e) => 
 loadCompanies();
 loadReceivedTickets();
 
-// Chat assistant handlers with local history (localStorage)
-const CHAT_STORAGE_KEY = 'ai_chats_v1';
-let chatSessions = [];
-let currentChatId = null;
-
-function loadChatSessions() {
-    try {
-        const raw = localStorage.getItem(CHAT_STORAGE_KEY);
-        chatSessions = raw ? JSON.parse(raw) : [];
-    } catch (e) {
-        chatSessions = [];
-    }
-}
-
-function saveChatSessions() {
-    localStorage.setItem(CHAT_STORAGE_KEY, JSON.stringify(chatSessions));
-}
-
-function renderChatHistory() {
-    const ul = document.getElementById('chatHistory');
-    if (!ul) return;
-    ul.innerHTML = '';
-    chatSessions.forEach(s => {
-        const li = document.createElement('li');
-        li.className = 'chat-history-item' + (s.id === currentChatId ? ' active' : '');
-        li.dataset.id = s.id;
-
-        const titleSpan = document.createElement('span');
-        titleSpan.className = 'chat-title';
-        titleSpan.textContent = s.title || (new Date(s.created_at).toLocaleString());
-        titleSpan.addEventListener('click', () => openChatSession(s.id));
-
-        const delBtn = document.createElement('button');
-        delBtn.className = 'chat-delete-btn';
-        delBtn.textContent = 'Delete';
-        delBtn.addEventListener('click', (e) => {
-            e.stopPropagation();
-            deleteChatSession(s.id);
-        });
-
-        li.appendChild(titleSpan);
-        li.appendChild(delBtn);
-        ul.appendChild(li);
-    });
-}
-
-function deleteChatSession(id) {
-    const idx = chatSessions.findIndex(s => s.id === id);
-    if (idx === -1) return;
-
-    // If deleting current session, pick next or previous as active
-    const wasCurrent = (chatSessions[idx].id === currentChatId);
-    chatSessions.splice(idx, 1);
-    if (chatSessions.length === 0) {
-        currentChatId = null;
-        saveChatSessions();
-        renderChatHistory();
-        document.getElementById('chatMessages').innerHTML = '';
-        document.getElementById('chatTitle').textContent = 'AI Assistant';
-        return;
-    }
-
-    if (wasCurrent) {
-        const newIndex = Math.min(idx, chatSessions.length - 1);
-        currentChatId = chatSessions[newIndex].id;
-    }
-
-    saveChatSessions();
-    renderChatHistory();
-    if (currentChatId) openChatSession(currentChatId);
-}
-
-function openChatSession(id) {
-    const session = chatSessions.find(s => s.id === id);
-    if (!session) return;
-    currentChatId = id;
-    document.getElementById('chatTitle').textContent = session.title || 'AI Assistant';
-    const container = document.getElementById('chatMessages');
-    container.innerHTML = '';
-    session.messages.forEach(m => appendChatMessage(m.role, m.text));
-    renderChatHistory();
-}
-
-function createNewChat() {
-    const id = 'chat_' + Date.now();
-    const session = { id, title: 'New Chat', created_at: new Date().toISOString(), messages: [] };
-    chatSessions.unshift(session);
-    saveChatSessions();
-    currentChatId = id;
-    renderChatHistory();
-    openChatSession(id);
-}
+// Chat assistant handlers - fresh ephemeral chat each session (no localStorage persistence)
+let currentChatMessages = [];
 
 document.getElementById('btnChat')?.addEventListener('click', function() {
     document.getElementById('chatModal')?.classList.add('show');
-    loadChatSessions();
-    if (chatSessions.length === 0) createNewChat();
-    else openChatSession(chatSessions[0].id);
+    // Fresh chat each time modal opens
+    currentChatMessages = [];
+    document.getElementById('chatTitle').textContent = 'AI Assistant';
+    document.getElementById('chatMessages').innerHTML = '';
+    document.getElementById('chatInput').value = '';
 });
 
 document.querySelectorAll('#chatModal .close').forEach(closeBtn => {
     closeBtn.addEventListener('click', function() {
         this.closest('.modal, .chat-modal-fullscreen').classList.remove('show');
+        // Clear chat on modal close
+        currentChatMessages = [];
+        document.getElementById('chatMessages').innerHTML = '';
+        document.getElementById('chatInput').value = '';
     });
 });
 
@@ -430,25 +346,9 @@ function appendChatMessage(role, text) {
     container.appendChild(el);
     container.scrollTop = container.scrollHeight;
 
-    // persist to current session
-    if (currentChatId) {
-        const session = chatSessions.find(s => s.id === currentChatId);
-        if (session) {
-            session.messages.push({ role, text });
-            // update title if new
-            if (!session.title || session.title === 'New Chat') {
-                const preview = session.messages.find(m => m.role === 'user');
-                if (preview) session.title = preview.text.substring(0, 30) + (preview.text.length > 30 ? '...' : '');
-            }
-            saveChatSessions();
-            renderChatHistory();
-        }
-    }
+    // Keep only in memory for this session
+    currentChatMessages.push({ role, text });
 }
-
-document.getElementById('newChatBtn')?.addEventListener('click', function() {
-    createNewChat();
-});
 
 document.getElementById('chatForm')?.addEventListener('submit', async function(e) {
     e.preventDefault();

@@ -383,7 +383,7 @@ body {
     width: 260px;
     background: #ffffff;
     border-right: 1px solid #eee;
-    display: flex;
+    display: none;
     flex-direction: column;
 }
 
@@ -394,6 +394,7 @@ body {
 
 .new-chat-btn, #newChatBtn {
     width: 100%;
+    display: none;
 }
 
 .chat-history {
