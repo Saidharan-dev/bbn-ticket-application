@@ -8,9 +8,9 @@
 </head>
 <body>
     <div class="navbar">
-        <div class="navbar-brand">BBN Ticket Management System</div>
+        <div class="navbar-brand">BBN Ticket Management System - {{ company_name }}</div>
         <div class="navbar-user">
-            <span>Welcome, {{ username }}</span>
+            <span>Welcome, {{ company_name }}</span>
             <a href="/logout" class="btn-logout">Logout</a>
         </div>
     </div>
@@ -34,6 +34,20 @@
             <!-- Pending Tickets View -->
             <div id="pending-view" class="view-section active">
                 <h2>Pending Tickets</h2>
+                <div class="client-filter-row" style="margin-bottom:12px; display:flex; gap:12px; align-items:center;">
+                    <div>
+                        <label for="filterRaisedBy">Filter by User:</label>
+                        <select id="filterRaisedBy">
+                            <option value="">All Users</option>
+                        </select>
+                    </div>
+                    <div>
+                        <label for="filterDesignation">Filter by Designation:</label>
+                        <select id="filterDesignation">
+                            <option value="">All Designations</option>
+                        </select>
+                    </div>
+                </div>
                 <div id="pending-tickets" class="tickets-list">
                     <p class="loading">Loading tickets...</p>
                 </div>
@@ -54,6 +68,24 @@
                     <div class="form-group">
                         <label for="problem">Describe Your Problem:</label>
                         <textarea id="problem" name="problem" rows="6" placeholder="Please describe the issue you're facing..." required></textarea>
+                    </div>
+                    <div class="form-group">
+                        <label for="raised_by">Raised By (Your name):</label>
+                        <input type="text" id="raised_by" name="raised_by" placeholder="e.g. John Doe" required>
+                    </div>
+                    <div class="form-group">
+                        <label for="designation">Designation:</label>
+                        <input type="text" id="designation" name="designation" placeholder="e.g. Manager" required>
+                    </div>
+                    
+                    <div class="form-group">
+                        <label for="priority">Priority:</label>
+                        <select id="priority" name="priority" required>
+                            <option value="High">High</option>
+                            <option value="Medium" selected>Medium</option>
+                            <option value="Low">Low</option>
+                        </select>
+                        <small>Select ticket priority (High, Medium, Low)</small>
                     </div>
                     
                     <div class="form-group">

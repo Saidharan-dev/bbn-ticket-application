@@ -3,12 +3,19 @@
     "password": "admin123",
     "role": "admin"
   },
-  "client1": {
-    "password": "client123",
-    "role": "client"
+  "company1": {
+    "password": "company123",
+    "role": "company",
+    "company_name": "Company 1"
   },
-  "client2": {
-    "password": "client456",
-    "role": "client"
+  "company2": {
+    "password": "company456",
+    "role": "company",
+    "company_name": "Company 2"
+  },
+  "company3": {
+    "password": "company789",
+    "role": "company",
+    "company_name": "Company 3"
   }
 }

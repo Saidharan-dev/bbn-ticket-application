@@ -1,5 +1,6 @@
 // Client Dashboard JavaScript
 let selectedTicketId = null;
+let allPendingTickets = [];
 
 // Menu navigation
 document.querySelectorAll('.menu-item').forEach(item => {
@@ -36,10 +37,39 @@ async function loadPendingTickets() {
         const tickets = await response.json();
         
         const pendingTickets = tickets.filter(t => t.status === 'pending');
-        displayTickets(pendingTickets, 'pending-tickets', 'pending');
+        allPendingTickets = pendingTickets;
+        populateClientFilters();
+        displayFilteredPending();
     } catch (error) {
         console.error('Error loading pending tickets:', error);
     }
+}
+
+function populateClientFilters() {
+    const userSelect = document.getElementById('filterRaisedBy');
+    const desigSelect = document.getElementById('filterDesignation');
+    if (!userSelect || !desigSelect) return;
+
+    const users = Array.from(new Set(allPendingTickets.map(t => t.raised_by).filter(Boolean)));
+    const desigs = Array.from(new Set(allPendingTickets.map(t => t.designation).filter(Boolean)));
+
+    // populate users
+    userSelect.innerHTML = '<option value="">All Users</option>' + users.map(u => `<option value="${u}">${u}</option>`).join('');
+    desigSelect.innerHTML = '<option value="">All Designations</option>' + desigs.map(d => `<option value="${d}">${d}</option>`).join('');
+
+    userSelect.addEventListener('change', displayFilteredPending);
+    desigSelect.addEventListener('change', displayFilteredPending);
+}
+
+function displayFilteredPending() {
+    const user = document.getElementById('filterRaisedBy')?.value || '';
+    const desig = document.getElementById('filterDesignation')?.value || '';
+
+    let filtered = allPendingTickets.slice();
+    if (user) filtered = filtered.filter(t => (t.raised_by || '') === user);
+    if (desig) filtered = filtered.filter(t => (t.designation || '') === desig);
+
+    displayTickets(filtered, 'pending-tickets', 'pending');
 }
 
 async function loadPreviousTickets() {
@@ -65,10 +95,16 @@ function displayTickets(tickets, containerId, type) {
     container.innerHTML = tickets.map(ticket => `
         <div class="ticket-card" onclick="viewTicket(${ticket.id})">
             <div class="ticket-header">
-                <div class="ticket-id">Ticket #${ticket.id}</div>
-                <span class="ticket-status ${ticket.status === 'pending' ? 'status-pending' : 'status-resolved'}">
-                    ${ticket.status === 'pending' ? 'Not Resolved' : 'Resolved'}
-                </span>
+                <div style="display:flex; flex-direction:column;">
+                    <div class="ticket-id">Ticket #${ticket.id}</div>
+                    <div class="ticket-raised">Raised by: ${ticket.raised_by || '—'} (${ticket.designation || '—'})</div>
+                </div>
+                <div class="ticket-right">
+                    <div class="ticket-priority">Priority: ${ticket.priority || 'Medium'}</div>
+                    <span class="ticket-status ${ticket.status === 'pending' ? 'status-pending' : 'status-resolved'}">
+                        ${ticket.status === 'pending' ? 'Not Resolved' : 'Resolved'}
+                    </span>
+                </div>
             </div>
             <div class="ticket-problem">${ticket.problem.substring(0, 100)}...</div>
             <div class="ticket-date">Created: ${new Date(ticket.created_at).toLocaleDateString()}</div>
@@ -92,6 +128,18 @@ function viewTicket(ticketId) {
                 <div class="detail-row">
                     <div class="detail-label">Ticket ID:</div>
                     <div class="detail-value">#${ticket.id}</div>
+                </div>
+                <div class="detail-row">
+                    <div class="detail-label">Priority:</div>
+                    <div class="detail-value">${ticket.priority || 'Medium'}</div>
+                </div>
+                <div class="detail-row">
+                    <div class="detail-label">Raised By:</div>
+                    <div class="detail-value">${ticket.raised_by || '—'}</div>
+                </div>
+                <div class="detail-row">
+                    <div class="detail-label">Designation:</div>
+                    <div class="detail-value">${ticket.designation || '—'}</div>
                 </div>
                 <div class="detail-row">
                     <div class="detail-label">Status:</div>
@@ -144,6 +192,9 @@ document.getElementById('ticketForm').addEventListener('submit', async (e) => {
     e.preventDefault();
     
     const problem = document.getElementById('problem').value;
+    const raised_by = document.getElementById('raised_by') ? document.getElementById('raised_by').value.trim() : '';
+    const designation = document.getElementById('designation') ? document.getElementById('designation').value.trim() : '';
+    const priority = document.getElementById('priority') ? document.getElementById('priority').value : 'Medium';
     const fileInput = document.getElementById('files');
     const attachments = Array.from(fileInput.files).map(f => f.name);
     
@@ -155,6 +206,9 @@ document.getElementById('ticketForm').addEventListener('submit', async (e) => {
             },
             body: JSON.stringify({
                 problem,
+                raised_by,
+                designation,
+                priority,
                 attachments
             })
         });

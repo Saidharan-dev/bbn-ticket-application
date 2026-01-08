@@ -24,10 +24,34 @@
                 <button class="menu-item" data-view="resolved">
                     ✓ Previous Responses (Resolved)
                 </button>
+                <button id="btnAddCompany" class="menu-action">
+                    ➕ Add Company
+                </button>
+                <button id="btnChat" class="menu-action">
+                    💬 AI Assistant
+                </button>
             </nav>
         </div>
         
         <div class="main-content">
+            <!-- Filter Section -->
+            <div class="filter-section">
+                <label for="companyFilter">Filter by Company:</label>
+                <select id="companyFilter">
+                    <option value="">All Companies</option>
+                </select>
+
+                <label for="priorityFilter">Filter by Priority:</label>
+                <select id="priorityFilter">
+                    <option value="">All Priorities</option>
+                    <option value="High">High</option>
+                    <option value="Medium">Medium</option>
+                    <option value="Low">Low</option>
+                </select>
+                
+                
+            </div>
+            
             <!-- Received Tickets View -->
             <div id="received-view" class="view-section active">
                 <h2>Received Tickets</h2>
@@ -54,6 +78,33 @@
             <div id="ticketDetails" class="ticket-details"></div>
         </div>
     </div>
+
+    <!-- Modal for Chat Assistant (Full Screen) -->
+    <div id="chatModal" class="chat-modal-fullscreen">
+        <div class="chat-wrapper">
+            <div class="chat-sidebar">
+                <div class="chat-sidebar-header">
+                    <button id="newChatBtn" class="btn-primary">+ New Chat</button>
+                </div>
+                <ul id="chatHistory" class="chat-history">
+                    <!-- history items inserted here -->
+                </ul>
+            </div>
+
+            <div class="chat-container">
+                <div class="chat-header">
+                    <h2 id="chatTitle">AI Assistant</h2>
+                    <span class="close" style="cursor:pointer; font-size:24px;">&times;</span>
+                </div>
+                <div id="chatMessages" class="chat-messages"></div>
+                <form id="chatForm" class="chat-form">
+                    <input type="text" id="chatInput" placeholder="Ask the assistant..." required>
+                    <button type="submit" class="btn-primary">Send</button>
+                </form>
+                <div id="chat-status" class="message" style="display:none; margin-top:8px;"></div>
+            </div>
+        </div>
+    </div>
     
     <!-- Modal for Solution -->
     <div id="solutionModal" class="modal">
@@ -71,6 +122,25 @@
         </div>
     </div>
     
+    <!-- Modal for Add Company -->
+    <div id="addCompanyModal" class="modal">
+        <div class="modal-content">
+            <span class="close">&times;</span>
+            <h2>Add a Company</h2>
+            <form id="addCompanyForm">
+                <div class="form-group">
+                    <label for="newCompanyName">Company Name:</label>
+                    <input type="text" id="newCompanyName" name="company_name" required>
+                </div>
+                <div class="form-group">
+                    <label for="newPassword">Password:</label>
+                    <input type="password" id="newPassword" name="password" required>
+                </div>
+                <button type="submit" class="btn-primary">Create Company</button>
+            </form>
+            <div id="add-company-message" class="message" style="display:none; margin-top:10px;"></div>
+        </div>
+    </div>
     <script src="{{ url_for('static', filename='js/admin.js') }}"></script>
 </body>
 </html>

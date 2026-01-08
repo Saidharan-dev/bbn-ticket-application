@@ -1,7 +1,8 @@
 [
   {
     "id": 1,
-    "client": "client1",
+    "company": "company1",
+    "company_name": "Company 1",
     "problem": "system is very slow while running my company software application",
     "attachments": [],
     "status": "resolved",
@@ -11,7 +12,8 @@
   },
   {
     "id": 2,
-    "client": "client1",
+    "company": "company1",
+    "company_name": "Company 1",
     "problem": "the current created vm has less vcpu's i need a little upgrade from 2 to 4",
     "attachments": [],
     "status": "resolved",
@@ -21,7 +23,8 @@
   },
   {
     "id": 3,
-    "client": "client1",
+    "company": "company1",
+    "company_name": "Company 1",
     "problem": "i cant able to open my application",
     "attachments": [],
     "status": "resolved",
@@ -31,12 +34,138 @@
   },
   {
     "id": 4,
-    "client": "client1",
+    "company": "company1",
+    "company_name": "Company 1",
     "problem": "computer is not working properly",
     "attachments": [],
     "status": "resolved",
     "created_at": "2025-12-30T19:09:55.531056",
     "solution": "resolved",
     "solution_date": "2025-12-30T19:13:48.105008"
+  },
+  {
+    "id": 5,
+    "company": "company1",
+    "company_name": "Company 1",
+    "problem": "not working",
+    "attachments": [],
+    "status": "pending",
+    "created_at": "2026-01-08T14:51:23.651550",
+    "solution": null,
+    "solution_date": null
+  },
+  {
+    "id": 6,
+    "company": "company1",
+    "company_name": "Company 1",
+    "problem": "cracked display",
+    "attachments": [],
+    "status": "pending",
+    "created_at": "2026-01-08T14:51:33.427274",
+    "solution": null,
+    "solution_date": null
+  },
+  {
+    "id": 7,
+    "company": "company1",
+    "company_name": "Company 1",
+    "problem": "mouse wheel is not working",
+    "attachments": [],
+    "status": "pending",
+    "created_at": "2026-01-08T14:51:41.738972",
+    "solution": null,
+    "solution_date": null
+  },
+  {
+    "id": 8,
+    "company": "company2",
+    "company_name": "Company 2",
+    "problem": "hhh",
+    "attachments": [],
+    "status": "pending",
+    "created_at": "2026-01-08T14:52:04.019328",
+    "solution": null,
+    "solution_date": null
+  },
+  {
+    "id": 9,
+    "company": "company2",
+    "company_name": "Company 2",
+    "problem": "aaa",
+    "attachments": [],
+    "status": "pending",
+    "created_at": "2026-01-08T14:52:06.443285",
+    "solution": null,
+    "solution_date": null
+  },
+  {
+    "id": 10,
+    "company": "company2",
+    "company_name": "Company 2",
+    "problem": "sss",
+    "attachments": [],
+    "status": "pending",
+    "created_at": "2026-01-08T14:52:08.723448",
+    "solution": null,
+    "solution_date": null
+  },
+  {
+    "id": 11,
+    "company": "company3",
+    "company_name": "Company 3",
+    "problem": "dmk",
+    "attachments": [],
+    "status": "resolved",
+    "created_at": "2026-01-08T14:52:35.147063",
+    "solution": "resolved",
+    "solution_date": "2026-01-08T14:53:14.099614"
+  },
+  {
+    "id": 12,
+    "company": "company3",
+    "company_name": "Company 3",
+    "problem": "admk",
+    "attachments": [],
+    "status": "pending",
+    "created_at": "2026-01-08T14:52:37.675052",
+    "solution": null,
+    "solution_date": null
+  },
+  {
+    "id": 13,
+    "company": "company3",
+    "company_name": "Company 3",
+    "problem": "tvk",
+    "attachments": [],
+    "status": "pending",
+    "created_at": "2026-01-08T14:52:40.795269",
+    "solution": null,
+    "solution_date": null
+  },
+  {
+    "id": 14,
+    "company": "company1",
+    "company_name": "Company 1",
+    "problem": "nigger",
+    "priority": "High",
+    "attachments": [],
+    "status": "pending",
+    "created_at": "2026-01-08T15:16:13.849254",
+    "solution": null,
+    "solution_date": null
+  },
+  {
+    "id": 15,
+    "company": "company1",
+    "company_name": "Company 1",
+    "problem": "space bar is not wrking properly in the keyboard",
+    "priority": "High",
+    "raised_by": "sai",
+    "designation": "dev",
+    "attachments": [],
+    "status": "pending",
+    "created_at": "2026-01-08T15:35:27.367205",
+    "solution": null,
+    "solution_date": null
   }
 ]
