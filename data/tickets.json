@@ -195,5 +195,19 @@
     "created_at": "2026-01-08T19:17:05.109336",
     "solution": "yjfuf",
     "solution_date": "2026-01-08T19:18:10.925427"
+  },
+  {
+    "id": 18,
+    "company": "company1",
+    "company_name": "Company 1",
+    "problem": "hellooo",
+    "priority": "High",
+    "raised_by": "thamu2",
+    "designation": "tech support",
+    "attachments": [],
+    "status": "pending",
+    "created_at": "2026-01-08T21:37:44.097421",
+    "solution": null,
+    "solution_date": null
   }
 ]

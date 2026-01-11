@@ -1,20 +1,20 @@
 {
   "admin": {
-    "password": "admin123",
+    "password_hash": "$2b$12$IxJFcHYjbwpJ2VpjuWjBheR6rX9v4sZIe.6ZKO5jtcJbeL4Lvb8lq",
     "role": "admin"
   },
   "company1": {
-    "password": "company123",
+    "password_hash": "$2b$12$fbngv9aqWDvsuhnIlULuoujG8nQv1VfzxNHc/waS8Hx1Kb/3J6txa",
     "role": "company",
     "company_name": "Company 1"
   },
   "company2": {
-    "password": "company456",
+    "password_hash": "$2b$12$UdJbZ8wTuiSqBpmVaLj/ReUxRrTzrIukwQyl8bJJwHfbSEAY9ht9y",
     "role": "company",
     "company_name": "Company 2"
   },
   "company3": {
-    "password": "company789",
+    "password_hash": "$2b$12$cG2JXZ3CJoPwmrnY4yukS.mvTVUdVQ2slFtWc1Hg3vOygmP9q1ISW",
     "role": "company",
     "company_name": "Company 3"
   }
