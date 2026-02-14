@@ -58,7 +58,7 @@ The application will be available at: `http://localhost:5000`
 - **Password**: admin123
 
 ### Client Login
-- **Username**: client1
+- **Username**: client1567
 - **Password**: client123
 
 ## Usage
