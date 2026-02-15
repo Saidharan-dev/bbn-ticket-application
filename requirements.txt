@@ -7,3 +7,4 @@ Flask-SQLAlchemy==3.0.5
 SQLAlchemy==1.4.48
 Flask-Limiter==4.1.1
 PyJWT==2.10.1
+Flask-Cors==3.0.10
