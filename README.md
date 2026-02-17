@@ -87,7 +87,7 @@ The application will be available at: `http://localhost:5000`
 
 ## Technology Stack
 
-- **Frontend**: HTML5, CSS3, JavaScript
+- **Frontend**: HTML5, JavaScript
 - **Backend**: Python Flask
 - **Storage**: JSON files
 
